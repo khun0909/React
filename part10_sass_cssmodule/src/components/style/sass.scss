@@ -1,0 +1,49 @@
+// Sass(Syntactically Awesome Style Sheets: 문법적으로 많이 멋진 스타일시트)
+// ◎ Sass 공식 홈페이지 (https://sass-lang.com/documentation/)
+// ◎ Sass 가이드: https://sass-guidelin.es/ko/
+
+// CSS의 단점을 보완하기 위해 만드어진 스크립팅 언어/CSS 전처리기(pre-processor)
+// 단점: 기존의 CSS 문법은 단순 반복되는 코드가 많았기에 프로젝트의 크기가 커질수록 작성되는 
+//       CSS 코드의 양도 많아지고 복잡해짐 => 유지보수가 힘들다.
+//       다른 프로그램밍 언어네서 기본 제공하는 연산기능, 함수 등 미지원
+
+// Sass는 기존의 CSS 문법을 확장하여 반복되는 중첩 구문을 간결하게 만듦으로써 코드의 가독을 높임.
+//        또한 변수, 함수, 반복문, 조건문 등을 사용할수 있도록 지원
+//       Mixin 기능 제공: 함수와 비슷한 동작을 하는 기능으로 CSS 스타일 시트에서 반복적으로 
+//                       재사용할 수 있는 CSS 스타일 그룹을 선언하는 문법
+
+// 확장자: .sass, .scss
+
+// CSS 표기 ************************************
+nav ul {
+  margin: 0;
+  list-style: none;
+}
+
+nav li {
+  display: inline-block;
+}
+
+nav a {
+  display: block;
+  padding: 6px 12px;
+}
+
+// Sass 표기 ***************************
+nav ul margin: 0 list-style: none li display: inline-block a display: block padding: 6px 12px // Scss 표기  ****************************
+
+nav {
+  ul {
+    margin: 0;
+    list-style: none;
+  }
+
+  li {
+    display: inline-block;
+  }
+
+  a {
+    display: block;
+    padding: 6px 12px;
+  }
+}

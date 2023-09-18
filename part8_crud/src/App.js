@@ -3,7 +3,7 @@ import { useState } from "react";
 import UserHeader from "./component/UserHeader";
 import UserNav from "./component/UserNav";
 import UserArticle from "./component/UserArticle";
-import UserCreate from "./component/UserCreate";
+import {UserCreate, UserUpdate} from "./component/UserCRUE";
 
 function App() {
 //
@@ -18,6 +18,8 @@ function App() {
 
   // content 생성 영역
   let content = null;
+  let ctControl = null;
+
   if (mode === "WELCOME") {
     content = (
       <UserArticle title="Welcome" body="Hello, React & Web"></UserArticle>
@@ -32,6 +34,11 @@ function App() {
       }
     }
     content = <UserArticle title={title} body={body}></UserArticle>;
+    ctControl = <li><a href={"/update"+id} onClick={(e)=>{
+      e.preventDefault();
+      setMode("UPDATE");
+    }}>Update</a></li>
+
   } else if (mode === "CREATE") {
     content = <UserCreate onCreate={(_title, _body) =>{
       const newTopic = {id:nextId, title:_title, body:_body};
@@ -42,6 +49,28 @@ function App() {
       setId(nextId);
       setNextId(nextId+1);
     }}></UserCreate>
+
+  } else if (mode === "UPDATE") {
+    let title, body = null;
+    for (let i = 0; i < topics.length; i++) {
+      if (topics[i].id === id) {
+        title = topics[i].title;
+        body = topics[i].body;
+        break;
+      }
+    }
+    // console.log('title', title);
+    content=<UserUpdate title={title} body={body} onUpdate={(title, body)=>{
+      const newTopics = [...topics];
+      for(let i = 0; i < newTopics.length; i++){
+        if(newTopics[i].id === id){
+          newTopics[i] = {id:id, title:title, body:body};  // 새로운 객체를 생성해서 대입한다.
+          break;
+        }
+      }
+      setTopics(newTopics);
+      setMode("READ");
+    }}></UserUpdate>
   }
 
   return (
@@ -61,11 +90,12 @@ function App() {
         }}
       ></UserNav>
       {content}
-      <a href="/create" onClick={(evn) =>{
+      <li><a href="/create" onClick={(evn) =>{
         evn.preventDefault();  // a태그의 href 링크로 이동하는 기본 기능을 막는다.
         setMode("CREATE");
       } 
-      }>Create</a>
+      }>Create</a></li>
+      {ctControl}
     </div>
   );
 }
